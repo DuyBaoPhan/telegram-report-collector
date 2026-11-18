@@ -1,0 +1,62 @@
+{
+  "labels": {
+    "report_code": [
+      "Mã báo cáo",
+      "Ma bao cao",
+      "Mã BC"
+    ],
+    "report_date": [
+      "Ngày báo cáo",
+      "Ngay bao cao",
+      "Ngày"
+    ],
+    "employee_name": [
+      "Nhân viên",
+      "Nhan vien",
+      "Họ tên"
+    ],
+    "work_content": [
+      "Nội dung",
+      "Noi dung",
+      "Công việc"
+    ],
+    "employee_id": [
+      "Mã nhân viên",
+      "Ma nhan vien"
+    ],
+    "department": [
+      "Bộ phận",
+      "Bo phan",
+      "Phòng ban"
+    ],
+    "result": [
+      "Kết quả",
+      "Ket qua"
+    ],
+    "issue": [
+      "Vấn đề",
+      "Van de"
+    ]
+  },
+  "required_fields": [
+    "report_code",
+    "report_date",
+    "employee_name",
+    "work_content"
+  ],
+  "multiline_fields": [
+    "work_content",
+    "result",
+    "issue"
+  ],
+  "date_formats": [
+    "%d/%m/%Y",
+    "%Y-%m-%d"
+  ],
+  "timezone": "Asia/Ho_Chi_Minh",
+  "policies": {
+    "employee_ids": null,
+    "group_ids": null,
+    "submission_hours": null
+  }
+}

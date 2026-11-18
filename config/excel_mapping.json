@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "template": "../templates/report_template.xlsx",
+  "detail_sheet": "Reports",
+  "summary_sheet": "Summary",
+  "issues_sheet": "Issues",
+  "first_data_row": 5,
+  "columns": {
+    "report_code": "A", "report_date": "B", "employee_id": "C",
+    "employee_name": "D", "department": "E", "work_content": "F",
+    "result": "G", "issue": "H", "group_name": "I", "chat_id": "J",
+    "user_id": "K", "message_id": "L", "raw_message_id": "M"
+  },
+  "roster_by_chat_id": {}
+}

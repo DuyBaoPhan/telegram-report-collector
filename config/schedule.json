@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "timezone": "Asia/Ho_Chi_Minh",
+  "times": [
+    "09:00",
+    "15:00",
+    "17:00"
+  ],
+  "group_times": {},
+  "realtime": {
+    "enabled": false,
+    "debounce_seconds": 10
+  }
+}
