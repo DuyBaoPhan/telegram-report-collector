@@ -6,6 +6,18 @@ from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parent.parent
 
+
+def config_path(value, default):
+    """Explicit custom paths win; shipped defaults prefer ignored local copies."""
+    path = Path(value)
+    resolved = path if path.is_absolute() else ROOT / path
+    if resolved.resolve() == (ROOT / default).resolve():
+        local = resolved.with_name(resolved.stem + '.local.json')
+        if local.is_file():
+            return local
+    return resolved
+
+
 @dataclass(frozen=True)
 class Settings:
     bot_token: str
@@ -39,10 +51,6 @@ class Settings:
         path = Path(os.getenv('DATABASE_PATH', 'data/collector.db'))
         if not path.is_absolute():
             path = ROOT / path
-        rules = Path(os.getenv('REPORT_RULES_PATH', 'config/report_rules.json'))
-        if not rules.is_absolute():
-            rules = ROOT / rules
-        schedule = Path(os.getenv("SCHEDULE_PATH", "config/schedule.json"))
-        if not schedule.is_absolute():
-            schedule = ROOT / schedule
+        rules = config_path(os.getenv('REPORT_RULES_PATH', 'config/report_rules.json'), 'config/report_rules.json')
+        schedule = config_path(os.getenv("SCHEDULE_PATH", "config/schedule.json"), "config/schedule.json")
         return cls(token, admins, group, level, path, rules, schedule)

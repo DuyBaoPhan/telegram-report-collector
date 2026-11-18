@@ -296,3 +296,28 @@ Final generated-data verification and measured limitations: [Phase 6 results](do
 Có giao diện tiếng Việt sáng/tối để theo dõi heartbeat bot, nhóm Telegram, lưu lượng 7 ngày, chất lượng báo cáo, metadata tiếp nhận và lịch sử xuất/scheduler. Chạy độc lập bằng `python -m app.dashboard`, chỉ bind `127.0.0.1`; bắt buộc tài khoản/mật khẩu dashboard riêng, không cần BOT_TOKEN. Không đọc nội dung tin nhắn hoặc thực thi thao tác quản trị.
 
 Xem [hướng dẫn Dashboard](docs/DASHBOARD.md) để cấu hình PowerShell, đăng nhập, giải thích heartbeat và giới hạn bảo mật. Dashboard không tự đọc `.env`; cần đặt DATABASE_PATH riêng nếu bot dùng đường dẫn tùy biến.
+
+
+## Local configuration and Git workflow
+
+On an existing installation, private runtime settings can be kept in ignored files:
+
+- `config/report_rules.local.json`
+- `config/schedule.local.json`
+- `config/excel_mapping.local.json`
+
+The bot prefers these files over the shipped defaults. An explicit non-default `REPORT_RULES_PATH` or `SCHEDULE_PATH` still wins. Excel uses the local mapping only when no explicit mapping path is supplied. If a local configuration is invalid, startup/export fails rather than silently using the public defaults. Do not edit the tracked sample files with company IDs or credentials. For a fresh clone, copy each sample to its `.local.json` counterpart before adding company settings.
+
+The tracked samples remain safe defaults; changing them is a source change that Git WILL publish. `.gitignore` does not protect tracked files.
+
+```powershell
+git status --short
+git diff
+python.exe -m pytest -q
+git add app tests docs scripts README.md requirements.txt .gitignore
+git diff --cached
+git commit -m "Describe the change"
+git push origin main
+```
+
+Never force-push as a routine update. Never commit `.env`, local config, database, exports, logs or backups. Review staged contents even when using `.gitignore`. Existing runtime data stays local and is not restored by cloning Git.

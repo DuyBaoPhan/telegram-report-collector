@@ -11,7 +11,10 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class TemplateManager:
-    def __init__(self, mapping_path=ROOT / 'config' / 'excel_mapping.json'):
+    def __init__(self, mapping_path=None):
+        if mapping_path is None:
+            local = ROOT / 'config' / 'excel_mapping.local.json'
+            mapping_path = local if local.is_file() else ROOT / 'config' / 'excel_mapping.json'
         self.mapping_path = Path(mapping_path).resolve()
         self.mapping = json.loads(self.mapping_path.read_text(encoding='utf-8-sig'))
         self._validate_mapping()
